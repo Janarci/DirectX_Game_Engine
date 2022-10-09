@@ -27,6 +27,7 @@ AppWindow::AppWindow()
 
 void AppWindow::update()
 {
+	/*
 	constant cc;
 	cc.m_time = ::GetTickCount();
 
@@ -38,7 +39,7 @@ void AppWindow::update()
 	Matrix4x4 temp;
 
 	m_delta_scale += m_delta_time / 0.55f;
-
+	*/
 	/*	cc.m_world.setIdentity();
 		cc.m_world.setScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(m_delta_scale) + 1.0f) / 2.0f));
 		temp.setIdentity();
@@ -198,14 +199,16 @@ void AppWindow::onCreate()
 	//m_cb->load(&cc, sizeof(constant));
 	m_cb->load(&m_time_temp, sizeof(constant));
 
-	cam_1.initializeCamera(true);
-	cam_2.initializeCamera(false);
+
 
 	m_world_cam2.setTranslation(Vector3D(0, 0, -2));
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
 	camPtr = &m_world_cam;
 
+
+	cam_1.initializeCamera(true);
+	cam_2.initializeCamera(false);
 	cam_Ptr = &cam_1;
 
 	//m_rs = GraphicsEngine::get()->createRasterizer_state();

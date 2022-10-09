@@ -37,6 +37,7 @@ void Camera::cameraUpdate(ConstantBuffer* m_cb, RECT rc)
 
 		cc.m_world.setIdentity();
 		cc.m_world.setScale(Vector3D(100, 100, 100));
+		cc.m_world.setScale(Vector3D(1, 1, 1));
 
 		/*cc.m_world.setScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(m_delta_scale) + 1.0f) / 2.0f));
 		temp.setIdentity();
