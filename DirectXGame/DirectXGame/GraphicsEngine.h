@@ -29,7 +29,7 @@ public:
 	IndexBuffer* createIndexBuffer();
 	VertexShader* createVertexShader(const void *shader_byte_code, size_t byte_code_size);
 	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
-	RasterizerState* createRasterizer_state();
+	RasterizerState* createRasterizer_state(bool wireframe);
 
 
 public:

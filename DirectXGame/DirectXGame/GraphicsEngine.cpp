@@ -131,7 +131,7 @@ PixelShader* GraphicsEngine::createPixelShader(const void* shader_byte_code, siz
 	return ps;
 }
 
-RasterizerState* GraphicsEngine::createRasterizer_state()
+RasterizerState* GraphicsEngine::createRasterizer_state(bool wireframe)
 {
 	/*
 	D3D11_RASTERIZER_DESC rasterizer_desc;
@@ -150,7 +150,7 @@ RasterizerState* GraphicsEngine::createRasterizer_state()
 
 	RasterizerState* rs = new RasterizerState();
 
-	if (!rs->init())
+	if (!rs->init(wireframe))
 	{
 		rs->release();
 		return nullptr;

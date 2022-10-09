@@ -112,8 +112,9 @@ void Camera::cameraUpdate(ConstantBuffer* m_cb, RECT rc)
 	m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 }
 
-void Camera::initializeCamera()
+void Camera::initializeCamera(bool wireframe)
 {
+	m_rs = GraphicsEngine::get()->createRasterizer_state(wireframe);
 
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
 

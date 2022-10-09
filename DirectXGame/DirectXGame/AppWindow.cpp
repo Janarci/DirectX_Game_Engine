@@ -198,8 +198,8 @@ void AppWindow::onCreate()
 	//m_cb->load(&cc, sizeof(constant));
 	m_cb->load(&m_time_temp, sizeof(constant));
 
-	cam_1.initializeCamera();
-	cam_2.initializeCamera();
+	cam_1.initializeCamera(true);
+	cam_2.initializeCamera(false);
 
 	m_world_cam2.setTranslation(Vector3D(0, 0, -2));
 	m_world_cam.setTranslation(Vector3D(0, 0, -2));
@@ -208,7 +208,7 @@ void AppWindow::onCreate()
 
 	cam_Ptr = &cam_1;
 
-	m_rs = GraphicsEngine::get()->createRasterizer_state();
+	//m_rs = GraphicsEngine::get()->createRasterizer_state();
 
 }
 
@@ -244,7 +244,7 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 
 	//  DRAW THE TRIANGLE
-	GraphicsEngine::get()->getImmediateDeviceContext()->setRasterizerState(m_rs);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setRasterizerState(cam_Ptr->m_rs);
 
 	//GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);/**/
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(m_ib->getSizeIndexList(),0, 0);
@@ -321,14 +321,16 @@ void AppWindow::onKeyDown(int key)
 
 	else if (key == 'E')
 	{
-		cam_Ptr = &cam_2;
+		cam_Ptr = &cam_1;
+		GraphicsEngine::get()->getImmediateDeviceContext()->setRasterizerState(cam_Ptr->m_rs);
 
 		//camPtr = &m_world_cam2;
 	}
 
 	else if (key == 'R')
 	{
-		cam_Ptr = &cam_1;
+		cam_Ptr = &cam_2;
+		GraphicsEngine::get()->getImmediateDeviceContext()->setRasterizerState(cam_Ptr->m_rs);
 
 		//camPtr = &m_world_cam;
 	}

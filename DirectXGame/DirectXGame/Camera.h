@@ -2,6 +2,9 @@
 #include "ConstantBuffer.h"
 #include "InputListener.h"
 #include "Matrix4x4.h"
+#include "RasterizerState.h"
+
+
 
 class Camera
 {
@@ -10,7 +13,7 @@ public:
 	Camera();
 
 	void cameraUpdate(ConstantBuffer* m_cb, RECT rc);
-	void initializeCamera();
+	void initializeCamera(bool wireframe);
 
 	long m_old_delta;
 	long m_new_delta;
@@ -30,6 +33,9 @@ public:
 
 	Matrix4x4 m_world_cam;
 	Vector3D m_cam_pos;
+
+	RasterizerState* m_rs;
+
 
 
 

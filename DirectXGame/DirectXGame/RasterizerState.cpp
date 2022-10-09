@@ -12,12 +12,21 @@ void RasterizerState::release()
 	delete this;
 }
 
-bool RasterizerState::init()
+bool RasterizerState::init(bool wireframe)
 {
 	D3D11_RASTERIZER_DESC rasterizer_desc;
 	ZeroMemory(&rasterizer_desc, sizeof(D3D11_RASTERIZER_DESC));
 
-	rasterizer_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+	if (wireframe)
+	{
+		rasterizer_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+
+	}
+	else
+	{
+		rasterizer_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+
+	}
 	rasterizer_desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
 
 

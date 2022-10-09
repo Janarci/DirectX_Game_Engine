@@ -14,7 +14,7 @@ public:
 	~RasterizerState();
 
 private:
-	bool init();
+	bool init(bool wireframe);
 
 private:
 	ID3D11RasterizerState* m_rs;
