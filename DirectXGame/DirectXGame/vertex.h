@@ -22,3 +22,9 @@ struct vertexPard
 	Vector3D color1;
 
 };
+
+__declspec(align(16))
+struct angle
+{
+	float m_angle;
+};

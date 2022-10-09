@@ -43,6 +43,9 @@
     <Filter Include="GameEngine\GraphicsEngine\RasterizerState">
       <UniqueIdentifier>{1e518a10-81f1-4053-98fa-67a06f12e5ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\EngineTime">
+      <UniqueIdentifier>{ff6f8d06-519e-4841-9f4c-e6d440f687ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="RasterizerState.cpp">
       <Filter>GameEngine\GraphicsEngine\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>GameEngine\EngineTime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="RasterizerState.h">
       <Filter>GameEngine\GraphicsEngine\RasterizerState</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTime.h">
+      <Filter>GameEngine\EngineTime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

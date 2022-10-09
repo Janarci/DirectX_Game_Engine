@@ -1,6 +1,8 @@
 
 #include "Window.h"
 
+#include "EngineTime.h"
+
 //Window* window=nullptr;
 
 Window::Window()
@@ -81,7 +83,7 @@ bool Window::init()
 		return false;
 	/*
 	if (!window)
-		window = this;
+		window = this;5
 	*/
 		//Creation of the window
 	m_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, ("MyWindowClass"), ("DirectX Application"), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 1024, 768,
@@ -100,13 +102,14 @@ bool Window::init()
 	//set this flag to true to indicate that the window is initialized and running
 	m_is_run = true;
 
-
+	EngineTime::initialize();
 
 	return true;
 }
 
 bool Window::broadcast()
 {
+	EngineTime::LogFrameStart();
 	MSG msg;
 
 	this->onUpdate();
@@ -119,6 +122,7 @@ bool Window::broadcast()
 
 
 	Sleep(1);
+	EngineTime::LogFrameEnd();
 
 	return true;
 }

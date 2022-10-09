@@ -37,8 +37,8 @@ UINT IndexBuffer::getSizeIndexList()
 
 bool IndexBuffer::release()
 {
-	m_buffer->Release();
-	delete this;
+	//m_buffer->Release();
+	//delete this;
 	return true;
 }
 

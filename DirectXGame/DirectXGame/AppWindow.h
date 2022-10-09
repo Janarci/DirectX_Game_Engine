@@ -14,6 +14,7 @@
 #include "Matrix4x4.h"
 #include "Camera.h"
 #include "RasterizerState.h"
+#include "EngineTime.h"
 
 
 
@@ -62,7 +63,10 @@ private:
 private:
 	long m_old_delta;
 	long m_new_delta;
-	float m_delta_time;
+
+	unsigned long m_old_time = 0;
+	float m_delta_time = 0;
+	float m_angle = 1;
 
 	float m_delta_pos;
 	float m_delta_scale;
