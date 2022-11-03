@@ -2,6 +2,7 @@
 
 #include "GraphicsEngine.h"
 #include "InputSystem.h"
+#include "DeviceContext.h"
 
 
 __declspec(align(16))
@@ -35,6 +36,7 @@ void Camera::cameraUpdate(ConstantBuffer* m_cb, RECT rc)
 
 	m_delta_scale += m_delta_time / 0.55f;
 
+
 		cc.m_world.setIdentity();
 		cc.m_world.setScale(Vector3D(100, 100, 100));
 		cc.m_world.setScale(Vector3D(1, 1, 1));
@@ -59,8 +61,6 @@ void Camera::cameraUpdate(ConstantBuffer* m_cb, RECT rc)
 		temp.setRotationY(m_rot_y);
 		cc.m_world *= temp;
 		*/
-
-
 	//cc.m_world.setIdentity();
 
 	Matrix4x4 world_cam;
@@ -95,6 +95,7 @@ void Camera::cameraUpdate(ConstantBuffer* m_cb, RECT rc)
 
 	//cc.m_view.setIdentity();
 	cc.m_view = world_cam;
+	localMatrix = world_cam;
 	/*
 	cc.m_proj.setOrthoLH
 	(
@@ -109,14 +110,22 @@ void Camera::cameraUpdate(ConstantBuffer* m_cb, RECT rc)
 	int height = (rc.bottom - rc.top);
 
 
-	cc.m_proj.setPerspectiveFovLH(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
-	m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+	//cc.m_proj.setPerspectiveFovLH(1.57f, ((float)width / (float)height), -10.0f, 2.0f);
+
+
+	//m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 }
 
 void Camera::initializeCamera(bool wireframe)
 {
 	m_rs = GraphicsEngine::get()->createRasterizer_state(wireframe);
 
-	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+	m_world_cam.setTranslation(Vector3D(0, 0, -0.3f));
 
+}
+
+Matrix4x4 Camera::getViewMatrix()
+{
+
+	return this->localMatrix;
 }

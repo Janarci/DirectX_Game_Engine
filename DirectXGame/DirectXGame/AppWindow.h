@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 #include "Window.h"
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
@@ -13,6 +15,7 @@
 #include "InputListener.h"
 #include "Matrix4x4.h"
 #include "Camera.h"
+#include "Cube.h"
 #include "RasterizerState.h"
 
 
@@ -74,6 +77,8 @@ private:
 	float m_scale_cube = 1.0f;
 	float m_forward = 0.0f;
 	float m_rightward = 0.0f;
+
+	vector<Cube*> cubeList;
 
 	Matrix4x4 m_world_cam;
 	Vector3D cam1_pos;

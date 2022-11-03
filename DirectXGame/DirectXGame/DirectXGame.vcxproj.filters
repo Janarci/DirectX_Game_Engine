@@ -43,6 +43,9 @@
     <Filter Include="GameEngine\GraphicsEngine\RasterizerState">
       <UniqueIdentifier>{1e518a10-81f1-4053-98fa-67a06f12e5ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\GameObjects">
+      <UniqueIdentifier>{06c8b837-1a23-4776-bd30-b4ef591e4459}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -89,6 +92,15 @@
     </ClCompile>
     <ClCompile Include="RasterizerState.cpp">
       <Filter>GameEngine\GraphicsEngine\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="AGameObject.cpp">
+      <Filter>App\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>App\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>App\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +163,15 @@
     </ClInclude>
     <ClInclude Include="RasterizerState.h">
       <Filter>GameEngine\GraphicsEngine\RasterizerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>App\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="AGameObject.h">
+      <Filter>App\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>App\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -86,24 +86,27 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
+	
+
+
 	//creating triangles with determined positions
 
-	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+	//m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
 	vertexPard test_vertex[] =
 	{
 		//X - Y - Z
 		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
+		{Vector3D(-1.5f,-1.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
+		{Vector3D(-1.5f,-0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
+		{ Vector3D(-0.5f,-0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
+		{ Vector3D(-0.5f,-1.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
 
 		//BACK FACE
-		{ Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
+		{ Vector3D(-0.5f,-1.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
+		{ Vector3D(-0.5f,-0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
+		{ Vector3D(-1.5f,-0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
+		{ Vector3D(-1.5f,-1.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
 	};
 	vertex list[] =
 	{
@@ -165,32 +168,9 @@ void AppWindow::onCreate()
 	};
 
 	m_ib = GraphicsEngine::get()->createIndexBuffer();
-
 	UINT size_index_list = ARRAYSIZE(index_list);
-
 	m_ib->load(index_list, size_index_list);
 
-
-	void *shader_byte_code = nullptr;
-	size_t size_shader = 0;
-
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-	//GraphicsEngine::get()->getShaderBufferAndSize(&shader_byte_code, &size_shader);
-	m_vb->load(test_vertex, sizeof(vertexPard), size_list, shader_byte_code, size_shader);
-	GraphicsEngine::get()->releaseCompiledShader();
-
-
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
-	GraphicsEngine::get()->releaseCompiledShader();
-	/*
-	quadOne.init(&list1);
-	quadTwo.init(&list2);
-	quadThree.init(&list3);
-	quadOne.drawMesh();
-*/
-	
 	constant cc;
 	cc.m_time = 0;
 	m_time_temp = 0;
@@ -200,9 +180,41 @@ void AppWindow::onCreate()
 	m_cb->load(&m_time_temp, sizeof(constant));
 
 
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
 
-	m_world_cam2.setTranslation(Vector3D(0, 0, -2));
-	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
+	m_vb->load(test_vertex, sizeof(vertexPard), size_list, shader_byte_code, size_shader);
+
+	Cube* cubeObject = new Cube("Cube", shader_byte_code, size_shader, m_cb);
+	cubeObject->setPosition(Vector3D(0, 0, 0));
+	cubeObject->setScale(Vector3D(0.4f, 0.4f, 0.4f));
+	this->cubeList.push_back(cubeObject);
+
+	Cube* cubeObject2 = new Cube("Cube", shader_byte_code, size_shader, m_cb);
+	cubeObject2->setPosition(Vector3D(1, 1, 1));
+	cubeObject2->setScale(Vector3D(1.0f, 1.0f, 1.0f));
+	this->cubeList.push_back(cubeObject2);
+
+
+
+	GraphicsEngine::get()->releaseCompiledShader();
+
+
+	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->releaseCompiledShader();
+
+	
+
+
+	
+
+
+
+	//m_world_cam2.setTranslation(Vector3D(0, 0, -2));
+	//m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
 	camPtr = &m_world_cam;
 
@@ -227,13 +239,16 @@ void AppWindow::onUpdate()
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
+	int width = rc.right - rc.left;
+	int height = rc.bottom - rc.top;
+
+
 	//GraphicsEngine::get()->createRasterizer_state();
 
 
-	update();
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
 
 	//SET DEFAULT SHADER IN THE GRAPHICS PIPELINE TO BE ABLE TO DRAW
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
@@ -250,14 +265,17 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setRasterizerState(cam_Ptr->m_rs);
 
 	//GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleStrip(m_vb->getSizeVertexList(), 0);/**/
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(m_ib->getSizeIndexList(),0, 0);
-	//quadOne.drawQuad();
+	//GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(m_ib->getSizeIndexList(),0, 0);
 
-	/*
-	quadOne.drawQuad();
-	quadTwo.drawQuad();
-	quadThree.drawQuad();
-	*/
+
+	update();
+
+
+	for (int i = 0; i < this->cubeList.size(); i++) {
+		this->cubeList[i]->draw(width, height, this->m_vs, this->m_ps, this->m_cb, this->cam_Ptr);
+	}
+
+
 	m_swap_chain->present(true);
 
 

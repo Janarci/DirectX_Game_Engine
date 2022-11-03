@@ -27,7 +27,7 @@ bool RasterizerState::init(bool wireframe)
 		rasterizer_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
 
 	}
-	rasterizer_desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
+	rasterizer_desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 
 
 	if (!SUCCEEDED(GraphicsEngine::get()->m_d3d_device->CreateRasterizerState(&rasterizer_desc, &m_rs)))

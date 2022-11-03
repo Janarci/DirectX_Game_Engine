@@ -5,6 +5,8 @@
 #include "RasterizerState.h"
 
 
+class VertexShader;
+class PixelShader;
 
 class Camera
 {
@@ -14,6 +16,7 @@ public:
 
 	void cameraUpdate(ConstantBuffer* m_cb, RECT rc);
 	void initializeCamera(bool wireframe);
+	Matrix4x4 getViewMatrix();
 
 	long m_old_delta;
 	long m_new_delta;
@@ -32,6 +35,7 @@ public:
 	float m_rightward = 0.0f;
 
 	Matrix4x4 m_world_cam;
+	Matrix4x4 localMatrix;
 	Vector3D m_cam_pos;
 
 	RasterizerState* m_rs;
