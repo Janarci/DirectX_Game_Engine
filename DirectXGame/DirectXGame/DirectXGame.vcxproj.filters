@@ -102,6 +102,10 @@
     <ClCompile Include="Plane.cpp">
       <Filter>App\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -173,6 +177,10 @@
     <ClInclude Include="Cube.h">
       <Filter>App\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader.fx">

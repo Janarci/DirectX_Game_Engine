@@ -1,6 +1,8 @@
 #pragma once
 #include <d3d11.h>
 
+#include "TextureManager.h"
+
 class SwapChain;
 class DeviceContext;
 class VertexBuffer;
@@ -9,6 +11,7 @@ class PixelShader;
 class ConstantBuffer;
 class IndexBuffer;
 class RasterizerState;
+class Texture;
 
 class GraphicsEngine
 {
@@ -21,6 +24,7 @@ public:
 	~GraphicsEngine();
 public:
 	static GraphicsEngine* get();
+	TextureManager* getTextureManager();
 public:
 	SwapChain *createSwapChain();
 	DeviceContext *getImmediateDeviceContext();
@@ -45,7 +49,7 @@ public:
 
 private:
 	DeviceContext* m_imm_device_context;
-
+	TextureManager* m_tex_manager = nullptr;
 private:
 	ID3D11Device* m_d3d_device;
 	D3D_FEATURE_LEVEL m_feature_level;
@@ -76,5 +80,6 @@ private:
 	friend class ConstantBuffer;
 	friend class IndexBuffer;
 	friend class RasterizerState;
+	friend class Texture;
 
 };

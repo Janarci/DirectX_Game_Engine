@@ -11,6 +11,12 @@
 
 GraphicsEngine::GraphicsEngine()
 {
+	try
+	{
+		m_tex_manager = new TextureManager();
+	}
+	catch (...) { throw std::exception("TextureManager not created successfully"); }
+
 }
 
 bool GraphicsEngine::init()
@@ -76,6 +82,11 @@ GraphicsEngine* GraphicsEngine::get()
 {
 	static GraphicsEngine engine;
 	return &engine;
+}
+
+TextureManager* GraphicsEngine::getTextureManager()
+{
+	return m_tex_manager;
 }
 
 SwapChain* GraphicsEngine::createSwapChain()

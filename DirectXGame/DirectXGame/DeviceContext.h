@@ -1,6 +1,8 @@
 #pragma once
 #include <d3d11.h>
 
+#include "TextureManager.h"
+
 class SwapChain;
 class VertexBuffer;
 class IndexBuffer;
@@ -32,6 +34,8 @@ public:
 	void setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer);
 	void setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer);
 
+	void setTexture(const VertexShader* vertex_shader, const TexturePtr& texture);
+	void setTexture(const PixelShader* pixel_shader, const TexturePtr& texture);
 
 	bool release();
 
