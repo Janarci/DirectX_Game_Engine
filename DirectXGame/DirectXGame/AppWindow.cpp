@@ -81,6 +81,9 @@ void AppWindow::onCreate()
 	InputSystem::get()->showCursor(false);
 
 	GraphicsEngine::get()->init();
+
+
+
 	m_swap_chain = GraphicsEngine::get()->createSwapChain();
 
 	RECT rc = this->getClientWindowRect();
@@ -207,7 +210,7 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->releaseCompiledShader();
 
 	
-
+	
 
 	
 
@@ -225,10 +228,12 @@ void AppWindow::onCreate()
 
 	//m_rs = GraphicsEngine::get()->createRasterizer_state();
 
+
 }
 
 void AppWindow::onUpdate()
 {
+
 	Window::onUpdate();
 
 	InputSystem::get()->update();
@@ -245,7 +250,7 @@ void AppWindow::onUpdate()
 
 	//GraphicsEngine::get()->createRasterizer_state();
 
-
+	
 
 	//GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
 	//GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);
@@ -268,14 +273,14 @@ void AppWindow::onUpdate()
 	//GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(m_ib->getSizeIndexList(),0, 0);
 
 
+	
+
 	update();
 
 
 	for (int i = 0; i < this->cubeList.size(); i++) {
 		this->cubeList[i]->draw(width, height, this->m_vs, this->m_ps, this->m_cb, this->cam_Ptr);
 	}
-
-
 	m_swap_chain->present(true);
 
 

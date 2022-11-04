@@ -2,6 +2,7 @@
 #include <string>
 #include "Vector3D.h"
 #include "Matrix4x4.h"
+#include "Vector2D.h"
 
 class Camera;
 using namespace std;
@@ -34,7 +35,14 @@ public:
 
 	string getName();
 
-	struct Vertex {
+	struct Vertex
+	{
+		Vector3D position;
+		Vector2D texcoord;
+	};
+
+
+	struct Vertexd {
 		Vector3D position;
 		Vector3D color;
 		Vector3D color2;

@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include "Texture.h"
 
 
 TextureManager::TextureManager(): ResourceManager()
@@ -21,7 +20,6 @@ TexturePtr TextureManager::createTextureFromFile(const wchar_t * file_path)
 
 Resource * TextureManager::createResourceFromFileConcrete(const wchar_t * file_path)
 {
-	std::wcout << file_path << std::endl;
 
 	Texture* tex = nullptr;
 	try
@@ -29,10 +27,5 @@ Resource * TextureManager::createResourceFromFileConcrete(const wchar_t * file_p
 		tex = new Texture(file_path);
 	}
 	catch (...) {}
-	if (tex == nullptr)
-	{
-		std::wcout << "we failed" << std::endl;
-
-	}
 	return tex;
 }

@@ -1,5 +1,6 @@
 #include "Cube.h"
 
+#include <DirectXTex.h>
 #include <iostream>
 
 #include "Camera.h"
@@ -10,20 +11,64 @@
 
 Cube::Cube(string name, void* shaderByteCode, size_t sizeShader, ConstantBuffer* constantBuffer) :AGameObject(name)
 {
-	
+
+
+	Vector3D position_list[] =
+	{
+		{ Vector3D(-0.5f,-0.5f,-0.5f)},
+		{ Vector3D(-0.5f,0.5f,-0.5f) },
+		{ Vector3D(0.5f,0.5f,-0.5f) },
+		{ Vector3D(0.5f,-0.5f,-0.5f)},
+
+		//BACK FACE
+		{ Vector3D(0.5f,-0.5f,0.5f) },
+		{ Vector3D(0.5f,0.5f,0.5f) },
+		{ Vector3D(-0.5f,0.5f,0.5f)},
+		{ Vector3D(-0.5f,-0.5f,0.5f) }
+	};
+
+	Vector2D texcoord_list[] =
+	{
+		{ Vector2D(0.0f,0.0f) },
+		{ Vector2D(0.0f,1.0f) },
+		{ Vector2D(1.0f,0.0f) },
+		{ Vector2D(1.0f,1.0f) }
+	};
+
 	Vertex quadList[] = {
 		//X - Y - Z
 		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
-		{ Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
+		{ position_list[0],texcoord_list[1] },
+		{ position_list[1],texcoord_list[0] },
+		{ position_list[2],texcoord_list[2] },
+		{ position_list[3],texcoord_list[3] },
 
-		//BACK FACE
-		{ Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
-		{ Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
-		{ Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) }
+
+		{ position_list[4],texcoord_list[1] },
+		{ position_list[5],texcoord_list[0] },
+		{ position_list[6],texcoord_list[2] },
+		{ position_list[7],texcoord_list[3] },
+
+
+		{ position_list[1],texcoord_list[1] },
+		{ position_list[6],texcoord_list[0] },
+		{ position_list[5],texcoord_list[2] },
+		{ position_list[2],texcoord_list[3] },
+
+		{ position_list[7],texcoord_list[1] },
+		{ position_list[0],texcoord_list[0] },
+		{ position_list[3],texcoord_list[2] },
+		{ position_list[4],texcoord_list[3] },
+
+		{ position_list[3],texcoord_list[1] },
+		{ position_list[2],texcoord_list[0] },
+		{ position_list[5],texcoord_list[2] },
+		{ position_list[4],texcoord_list[3] },
+
+		{ position_list[7],texcoord_list[1] },
+		{ position_list[6],texcoord_list[0] },
+		{ position_list[1],texcoord_list[2] },
+		{ position_list[0],texcoord_list[3] }
 	};
 
 	this->vertexBuffer = GraphicsEngine::get()->createVertexBuffer();
@@ -38,17 +83,17 @@ Cube::Cube(string name, void* shaderByteCode, size_t sizeShader, ConstantBuffer*
 		4,5,6,
 		6,7,4,
 		//TOP SIDE
-		1,6,5,
-		5,2,1,
+		8,9,10,
+		10,11,8,
 		//BOTTOM SIDE
-		7,0,3,
-		3,4,7,
+		12,13,14,
+		14,15,12,
 		//RIGHT SIDE
-		3,2,5,
-		5,4,3,
+		16,17,18,
+		18,19,16,
 		//LEFT SIDE
-		7,6,1,
-		1,0,7
+		20,21,22,
+		22,23,20
 	};
 	this->indexBuffer = GraphicsEngine::get()->createIndexBuffer();
 	UINT size_index_list = ARRAYSIZE(indexList);
@@ -84,6 +129,11 @@ void Cube::update(float deltaTime)
 
 void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader, ConstantBuffer* constantBuffer, Camera* cam)
 {
+	if (!m_wood_tex)
+	{
+		m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\wood.jpg");
+
+	}
 
 	Data cbData = {};
 	//cbData.time = this->ticks * this->speed;
@@ -120,7 +170,7 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 	//for rotations
 	temp.setIdentity();
 	temp.setRotationX(m_delta_rot);
-	//cbData.worldMatrix *= temp;
+	cbData.worldMatrix *= temp;
 
 
 	temp.setIdentity();
@@ -153,6 +203,8 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(this->indexBuffer);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(this->vertexBuffer);
+
+	GraphicsEngine::get()->getImmediateDeviceContext()->setTexture(pixelShader, m_wood_tex);
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(this->indexBuffer->getSizeIndexList(), 0, 0);
 

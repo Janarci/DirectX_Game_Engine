@@ -25,7 +25,7 @@ Texture::Texture(const wchar_t* full_path): Resource(full_path)
 	}
 	else
 	{
-		//std::cout << "we failed" << std::endl;
+		std::wcout << full_path << std::endl;
 
 		throw std::exception("Texture not created successfully");
 	}

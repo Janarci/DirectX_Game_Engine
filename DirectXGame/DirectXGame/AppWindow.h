@@ -30,7 +30,6 @@ public:
 	~AppWindow();
 
 
-
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
@@ -60,7 +59,6 @@ private:
 	ConstantBuffer* m_cb;
 	IndexBuffer* m_ib;
 	RasterizerState* m_rs;
-
 
 private:
 	long m_old_delta;

@@ -25,6 +25,7 @@ public:
 public:
 	static GraphicsEngine* get();
 	TextureManager* getTextureManager();
+	void getVertexMeshLayoutShaderByteCodeAndSize(void** byte_code, size_t* size);
 public:
 	SwapChain *createSwapChain();
 	DeviceContext *getImmediateDeviceContext();
@@ -50,6 +51,12 @@ public:
 private:
 	DeviceContext* m_imm_device_context;
 	TextureManager* m_tex_manager = nullptr;
+	//unsigned char m_mesh_layout_byte_code[1024];
+	//size_t m_mesh_layout_size = 0;
+	//DeviceContext* m_imm_device_contewsxt;
+
+
+
 private:
 	ID3D11Device* m_d3d_device;
 	D3D_FEATURE_LEVEL m_feature_level;

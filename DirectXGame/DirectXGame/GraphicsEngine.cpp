@@ -17,6 +17,17 @@ GraphicsEngine::GraphicsEngine()
 	}
 	catch (...) { throw std::exception("TextureManager not created successfully"); }
 
+
+	
+
+
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+	/*GraphicsEngine::get()->compileVertexShader(L"VertexMeshLayoutShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+
+	::memcpy(m_mesh_layout_byte_code, shader_byte_code, size_shader);
+	m_mesh_layout_size = size_shader;
+	GraphicsEngine::get()->releaseCompiledShader();*/
 }
 
 bool GraphicsEngine::init()
@@ -87,6 +98,10 @@ GraphicsEngine* GraphicsEngine::get()
 TextureManager* GraphicsEngine::getTextureManager()
 {
 	return m_tex_manager;
+}
+
+void GraphicsEngine::getVertexMeshLayoutShaderByteCodeAndSize(void** byte_code, size_t* size)
+{
 }
 
 SwapChain* GraphicsEngine::createSwapChain()
