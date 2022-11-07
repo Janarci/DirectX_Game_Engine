@@ -2,6 +2,7 @@
 #include <d3d11.h>
 
 #include "TextureManager.h"
+#include "MeshManager.h"
 
 class SwapChain;
 class DeviceContext;
@@ -16,6 +17,8 @@ class Texture;
 class GraphicsEngine
 {
 public:
+
+
 	GraphicsEngine();
 	//Initialize the GraphicsEngine and DirectX 11 Device
 	bool init();
@@ -25,6 +28,7 @@ public:
 public:
 	static GraphicsEngine* get();
 	TextureManager* getTextureManager();
+	MeshManager* getMeshManager();
 	void getVertexMeshLayoutShaderByteCodeAndSize(void** byte_code, size_t* size);
 public:
 	SwapChain *createSwapChain();
@@ -46,14 +50,14 @@ public:
 
 	//bool createShaders();
 	//bool setShaders();
-	//void getShaderBufferAndSize(void** bytecode, UINT* size);
 
 private:
 	DeviceContext* m_imm_device_context;
 	TextureManager* m_tex_manager = nullptr;
-	//unsigned char m_mesh_layout_byte_code[1024];
-	//size_t m_mesh_layout_size = 0;
-	//DeviceContext* m_imm_device_contewsxt;
+	MeshManager* m_mesh_manager = nullptr;
+
+	unsigned char m_mesh_layout_byte_code[1024];
+	size_t m_mesh_layout_size = 0;
 
 
 
@@ -88,5 +92,8 @@ private:
 	friend class IndexBuffer;
 	friend class RasterizerState;
 	friend class Texture;
+
+
+
 
 };

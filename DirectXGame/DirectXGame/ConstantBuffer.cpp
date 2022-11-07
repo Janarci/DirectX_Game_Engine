@@ -3,8 +3,12 @@
 #include "DeviceContext.h"
 #include "GraphicsEngine.h"
 
+#include "RenderSystem.h"
+#include <exception>
+
 ConstantBuffer::ConstantBuffer()
 {
+
 }
 
 bool ConstantBuffer::load(void* buffer, UINT size_buffer)

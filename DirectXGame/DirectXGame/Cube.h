@@ -4,6 +4,7 @@
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 #include "TextureManager.h"
+#include "MeshManager.h"
 
 class Cube : public AGameObject
 {
@@ -18,6 +19,8 @@ private:
 	VertexBuffer* vertexBuffer;
 	IndexBuffer* indexBuffer;
 	TexturePtr m_wood_tex;
+	MeshPtr m_mesh;
+
 	//ConstantBuffer* m_cb;
 	float m_delta_rot;
 	long oldTime;

@@ -120,7 +120,7 @@ void Camera::initializeCamera(bool wireframe)
 {
 	m_rs = GraphicsEngine::get()->createRasterizer_state(wireframe);
 
-	m_world_cam.setTranslation(Vector3D(0, 0, -0.3f));
+	m_world_cam.setTranslation(Vector3D(0, 0, -4.f));
 
 }
 

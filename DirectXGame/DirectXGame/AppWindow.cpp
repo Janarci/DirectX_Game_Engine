@@ -21,7 +21,7 @@ unsigned int m_time_temp;
 
 AppWindow::AppWindow()
 {
-
+	
 	
 }
 
@@ -174,33 +174,87 @@ void AppWindow::onCreate()
 	UINT size_index_list = ARRAYSIZE(index_list);
 	m_ib->load(index_list, size_index_list);
 
-	constant cc;
-	cc.m_time = 0;
-	m_time_temp = 0;
+
 
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
-	//m_cb->load(&cc, sizeof(constant));
-	m_cb->load(&m_time_temp, sizeof(constant));
-
+	constant data = {};
+	data.m_time = 0;
+	m_cb->load(&data, sizeof(data));
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
 	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+
 	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
 	m_vb->load(test_vertex, sizeof(vertexPard), size_list, shader_byte_code, size_shader);
-
+	
 	Cube* cubeObject = new Cube("Cube", shader_byte_code, size_shader, m_cb);
-	cubeObject->setPosition(Vector3D(0, 0, 0));
-	cubeObject->setScale(Vector3D(0.4f, 0.4f, 0.4f));
+	cubeObject->setPosition(Vector3D(0, 0.9,0));
+	cubeObject->setScale(Vector3D(1, 1, 1));
 	this->cubeList.push_back(cubeObject);
 
+	Cube* cubeObject2 = new Cube("Cube", shader_byte_code, size_shader, m_cb);
+	cubeObject2->setPosition(Vector3D(-1.5, 2.0, 0));
+	cubeObject2->setScale(Vector3D(1,1,1));
+	this->cubeList.push_back(cubeObject2);
+
+	Cube* cubeObject3 = new Cube("Cube", shader_byte_code, size_shader, m_cb);
+	cubeObject3->setPosition(Vector3D(-1.5, 3.0, -2.0));
+	cubeObject3->setScale(Vector3D(1, 1, 1));
+
+	this->cubeList.push_back(cubeObject3);
+
+	/*for (int i = 0; i < 15; ++i)
+	{
+		Cube* cubeObject = new Cube("Cube", shader_byte_code, size_shader, m_cb);
+
+		if (i < 6)
+		{
+			cubeObject->setPosition(Vector3D(i * .3, 0, 0));
+		}
+		if (i >= 6 && i < 10)
+		{
+			cubeObject->setPosition(Vector3D((i-5) * .3 , 1, 0));
+		}
+		if (i >= 10 && i < 12)
+		{
+			cubeObject->setPosition(Vector3D((i - 8) * .3, 2, 0));
+		}
+		if (i >= 12 && i < 14)
+		{
+			cubeObject->setPosition(Vector3D((i - 11.5)*.8, 0.5, 0));
+		}
+		if (i==14 )
+		{
+			cubeObject->setPosition(Vector3D((i - 13) * .8, 1.5, 0));
+		}
+
+		if (i%2 == 0 && i < 12)
+		{
+			cubeObject->setRotation(0, 0, -.3);
+			cout << i << endl;
+
+		}
+		else if(i % 2 == !0 && i < 12)
+		{
+			cubeObject->setRotation(0, 0, .3);
+
+		}
+		else
+			cubeObject->setRotation(0, 0, 1.55);
+
+		cubeObject->setScale(Vector3D(0.0f, 1.0f, 0.5f));
+		this->cubeList.push_back(cubeObject);
+		
+	}*/
+
+	/*
 	Cube* cubeObject2 = new Cube("Cube", shader_byte_code, size_shader, m_cb);
 	cubeObject2->setPosition(Vector3D(1, 1, 1));
 	cubeObject2->setScale(Vector3D(1.0f, 1.0f, 1.0f));
 	this->cubeList.push_back(cubeObject2);
-
-
+	*/
 
 	GraphicsEngine::get()->releaseCompiledShader();
 
@@ -219,7 +273,7 @@ void AppWindow::onCreate()
 	//m_world_cam2.setTranslation(Vector3D(0, 0, -2));
 	//m_world_cam.setTranslation(Vector3D(0, 0, -2));
 
-	camPtr = &m_world_cam;
+	//camPtr = &m_world_cam;
 
 
 	cam_1.initializeCamera(true);
@@ -262,9 +316,9 @@ void AppWindow::onUpdate()
 
 
 	//SET THE VERTICES OF THE TRIANGLE TO DRAW
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
 	//set indices
-	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_ib);
 
 	//  DRAW THE TRIANGLE
 	GraphicsEngine::get()->getImmediateDeviceContext()->setRasterizerState(cam_Ptr->m_rs);

@@ -89,4 +89,6 @@ private:
 	Camera cam_1;
 	Camera cam_2;
 	Camera* cam_Ptr;
+
+
 };

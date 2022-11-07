@@ -23,10 +23,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 #pragma once
+
+#include <memory>
+
 #include "Resource.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
 
+typedef std::shared_ptr<VertexBuffer> VertexBufferPtr;
+typedef std::shared_ptr<IndexBuffer> IndexBufferPtr;
 
 class Mesh: public Resource
 {
@@ -35,9 +40,17 @@ public:
 	~Mesh();
 	//const VertexBufferPtr& getVertexBuffer();
 	//const IndexBufferPtr& getIndexBuffer();
+
+	 VertexBuffer* getVertexBuffer();
+	 IndexBuffer* getIndexBuffer();
+
+	VertexBuffer* m_vb;
+	IndexBuffer* m_ib;
+
+
 private:
-	//VertexBufferPtr m_vertex_buffer;
-	//IndexBufferPtr m_index_buffer;
+	VertexBufferPtr m_vertex_buffer;
+	IndexBufferPtr m_index_buffer;
 private:
 	friend class DeviceContext;
 };

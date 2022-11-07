@@ -36,39 +36,18 @@ Cube::Cube(string name, void* shaderByteCode, size_t sizeShader, ConstantBuffer*
 	};
 
 	Vertex quadList[] = {
-		//X - Y - Z
+		//X, Y, Z
 		//FRONT FACE
-		{ position_list[0],texcoord_list[1] },
-		{ position_list[1],texcoord_list[0] },
-		{ position_list[2],texcoord_list[2] },
-		{ position_list[3],texcoord_list[3] },
+		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
+		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
+		{Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
+		{Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
 
-
-		{ position_list[4],texcoord_list[1] },
-		{ position_list[5],texcoord_list[0] },
-		{ position_list[6],texcoord_list[2] },
-		{ position_list[7],texcoord_list[3] },
-
-
-		{ position_list[1],texcoord_list[1] },
-		{ position_list[6],texcoord_list[0] },
-		{ position_list[5],texcoord_list[2] },
-		{ position_list[2],texcoord_list[3] },
-
-		{ position_list[7],texcoord_list[1] },
-		{ position_list[0],texcoord_list[0] },
-		{ position_list[3],texcoord_list[2] },
-		{ position_list[4],texcoord_list[3] },
-
-		{ position_list[3],texcoord_list[1] },
-		{ position_list[2],texcoord_list[0] },
-		{ position_list[5],texcoord_list[2] },
-		{ position_list[4],texcoord_list[3] },
-
-		{ position_list[7],texcoord_list[1] },
-		{ position_list[6],texcoord_list[0] },
-		{ position_list[1],texcoord_list[2] },
-		{ position_list[0],texcoord_list[3] }
+		//BACK FACE
+		{Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
+		{Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
+		{Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
+		{Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) },
 	};
 
 	this->vertexBuffer = GraphicsEngine::get()->createVertexBuffer();
@@ -83,17 +62,17 @@ Cube::Cube(string name, void* shaderByteCode, size_t sizeShader, ConstantBuffer*
 		4,5,6,
 		6,7,4,
 		//TOP SIDE
-		8,9,10,
-		10,11,8,
+		1,6,5,
+		5,2,1,
 		//BOTTOM SIDE
-		12,13,14,
-		14,15,12,
+		7,0,3,
+		3,4,7,
 		//RIGHT SIDE
-		16,17,18,
-		18,19,16,
+		3,2,5,
+		5,4,3,
 		//LEFT SIDE
-		20,21,22,
-		22,23,20
+		7,6,1,
+		1,0,7
 	};
 	this->indexBuffer = GraphicsEngine::get()->createIndexBuffer();
 	UINT size_index_list = ARRAYSIZE(indexList);
@@ -102,12 +81,12 @@ Cube::Cube(string name, void* shaderByteCode, size_t sizeShader, ConstantBuffer*
 	//create constant buffer
 	Data data = {};
 	data.time = 0;
+	//constantBuffer->load(&data, sizeof(data));
 
 	//this->m_cb = GraphicsEngine::get()->createConstantBuffer();
 	//this->m_cb->load(&data, sizeof(data));
 
 	//this->m_cb = constantBuffer;
-	constantBuffer->load(&data, sizeof(data));
 	//this->m_cb = m_cb;
 
 
@@ -135,6 +114,8 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 
 	}
 
+
+
 	Data cbData = {};
 	//cbData.time = this->ticks * this->speed;
 	this->deltaPos += this->deltaTime / 10.0f;
@@ -147,31 +128,34 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 
 	Matrix4x4 temp;
 	m_delta_rot += deltaTime / 0.55f;
+	cbData.worldMatrix.setIdentity();
 
 	//cc.m_world.setScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(m_delta_scale) + 1.0f) / 2.0f));
 
-	//temp.setTranslation(Vector3D::lerp(Vector3D(-1.5f, -1.5f, 0), Vector3D(1.5f,1.5f, 0), m_delta_pos));
+	//temp.setTranslation(Vector3D::lerp(Vector3D(-1.5f, -1.5f, 0), Vector3D(1.5f,1.5f, 0), deltaPos));
 
-	//cc.m_world *= temp;
+	//cbData.worldMatrix *= temp;
 	
-	cbData.worldMatrix.setIdentity();
 	cbData.worldMatrix.setScale(this->getLocalScale());
+	//cbData.worldMatrix.setScale(Vector3D::lerp(Vector3D(0.25, 0.25, 0.25), Vector3D(1.0f, 0.0f, 1.0f), (sin(m_delta_rot) + 1.0f) / 2.0f));
 
 	//for rotations
 	temp.setIdentity();
-	temp.setRotationZ(m_delta_rot);
-	//cbData.worldMatrix *= temp;
-
-	//for rotations
-	temp.setIdentity();
-	temp.setRotationY(m_delta_rot);
-	//cbData.worldMatrix *= temp;
-
-	//for rotations
-	temp.setIdentity();
-	temp.setRotationX(m_delta_rot);
+	temp.setRotationZ(this->getLocalRotation().m_z);
 	cbData.worldMatrix *= temp;
 
+	//for rotations
+	temp.setIdentity();
+	temp.setRotationY(this->getLocalRotation().m_y);
+	cbData.worldMatrix *= temp;
+
+	//for rotations
+	temp.setIdentity();
+	temp.setRotationX(this->getLocalRotation().m_x);
+	//temp.setRotationX(m_delta_rot);
+	cbData.worldMatrix *= temp;
+
+	
 
 	temp.setIdentity();
 	temp.setTranslation(this->getLocalPosition());
@@ -204,9 +188,14 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(this->indexBuffer);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(this->vertexBuffer);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setTexture(pixelShader, m_wood_tex);
+//	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(m_mesh->getIndexBuffer());
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_mesh->getVertexBuffer());
+
+
+	//GraphicsEngine::get()->getImmediateDeviceContext()->setTexture(pixelShader, m_wood_tex);
 
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(this->indexBuffer->getSizeIndexList(), 0, 0);
+//	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexTriangleList(m_mesh->getIndexBuffer()->getSizeIndexList(), 0, 0);
 
 	oldTime = newDelta;
 	newDelta = ::GetTickCount();

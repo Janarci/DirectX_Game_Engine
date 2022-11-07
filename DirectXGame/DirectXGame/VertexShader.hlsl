@@ -1,13 +1,17 @@
 struct VS_INPUT
 {
-	float4 position: POSITION0;
-	float2 texcoord: TEXCOORD0;
+	float4 position: POSITION;
+	float3 color: COLOR;
+	float3 color1: COLOR1;
+
 };
 
 struct VS_OUTPUT
 {
-	float4 position: SV_POSITION;
-	float2 texcoord: TEXCOORD0;
+	float4 position : SV_POSITION;
+	float3 color: COLOR;
+	float3 color1: COLOR1;
+
 };
 
 
@@ -33,6 +37,8 @@ VS_OUTPUT vsmain(VS_INPUT input)
 	output.position = mul(output.position, m_proj);
 
 
-	output.texcoord = input.texcoord;
+	output.color = input.color;
+	output.color1 = input.color1;
+
 	return output;
 }

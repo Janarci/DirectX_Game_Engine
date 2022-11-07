@@ -38,7 +38,8 @@ public:
 	struct Vertex
 	{
 		Vector3D position;
-		Vector2D texcoord;
+		Vector3D color;
+		Vector3D color2;
 	};
 
 
